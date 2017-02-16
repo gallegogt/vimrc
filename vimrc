@@ -107,7 +107,7 @@ Plugin 'michalbachowski/vim-wombat256mod'
 "Javascript autocomplete
 "Plugin 'marijnh/tern_for_vim'
 " CMake
-Plugin 'jalcine/cmake.vim'
+"Plugin 'jalcine/cmake.vim'
 "
 " RUST Lang
 "
@@ -117,6 +117,9 @@ Plugin 'jalcine/cmake.vim'
 " Typescript
 "
 Plugin 'leafgarland/typescript-vim'
+
+" Vim syntax file & snippets for Docker's Dockerfile
+Plugin 'ekalinin/Dockerfile.vim'
 
 call vundle#end()            " required
 
