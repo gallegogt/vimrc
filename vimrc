@@ -16,6 +16,12 @@ endif
 " required for vundle
 filetype off
 
+"
+" Mostrar caracteres
+"
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣,space:.
+set list
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -29,7 +35,7 @@ Plugin 'gmarik/Vundle'
 
 " Plugins from GitHub repos:
 " python completer
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 "Plugin 'Valloric/YouCompleteMe'
 " Python and PHP Debugger
 "Plugin 'fisadev/vim-debug.vim'
@@ -93,7 +99,7 @@ Plugin 'airblade/vim-gitgutter'
 " Autocompletion
 Plugin 'AutoComplPop'
 " Python code checker
-Plugin 'pyflakes.vim'
+" Plugin 'pyflakes.vim'
 " Search results counter
 Plugin 'IndexedSearch'
 " XML/HTML tags navigation
@@ -111,15 +117,20 @@ Plugin 'michalbachowski/vim-wombat256mod'
 "
 " RUST Lang
 "
-"Plugin 'wting/rust.vim'
+Plugin 'rust-lang/rust.vim'
 "Plugin 'phildawes/racer'
 "
 " Typescript
 "
-Plugin 'leafgarland/typescript-vim'
+" Plugin 'leafgarland/typescript-vim'
 
 " Vim syntax file & snippets for Docker's Dockerfile
 Plugin 'ekalinin/Dockerfile.vim'
+"
+" TOML Syntax
+"
+Plugin 'cespare/vim-toml'
+
 
 call vundle#end()            " required
 
@@ -152,6 +163,7 @@ set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType rust setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " always show status bar
 set ls=2
@@ -213,35 +225,6 @@ highlight Pmenu ctermbg=4 guibg=LightGray
 " highlight PmenuSbar ctermbg=7 guibg=DarkGray
 " highlight PmenuThumb guibg=Black
 " use global scope search
-let OmniCpp_GlobalScopeSearch = 1
-" 0 = namespaces disabled
-" 1 = search namespaces in the current buffer
-" 2 = search namespaces in the current buffer and in included files
-let OmniCpp_NamespaceSearch = 2
-" 0 = auto
-" 1 = always show all members
-let OmniCpp_DisplayMode = 1
-" 0 = don't show scope in abbreviation
-" 1 = show scope in abbreviation and remove the last column
-let OmniCpp_ShowScopeInAbbr = 0
-" This option allows to display the prototype of a function in the abbreviation part of the popup menu.
-" 0 = don't display prototype in abbreviation
-" 1 = display prototype in abbreviation
-let OmniCpp_ShowPrototypeInAbbr = 1
-" This option allows to show/hide the access information ('+', '#', '-') in the popup menu.
-" 0 = hide access
-" 1 = show access
-let OmniCpp_ShowAccess = 1
-" This option can be use if you don't want to parse using namespace declarations in included files and want to add
-" namespaces that are always used in your project.
-let OmniCpp_DefaultNamespaces = ["std"]
-" Complete Behaviour
-let OmniCpp_MayCompleteDot = 0
-let OmniCpp_MayCompleteArrow = 0
-let OmniCpp_MayCompleteScope = 0
-" When 'completeopt' does not contain "longest", Vim automatically select the first entry of the popup menu. You can
-" change this behaviour with the OmniCpp_SelectFirstItem option.
-let OmniCpp_SelectFirstItem = 0
 
 " debugger keyboard shortcuts
 map <F5> :Dbg over<CR>
@@ -381,6 +364,12 @@ let g:tern#command = ['tern']
 "
 " Python Jedi Configuracion
 "
-let g:jedi#auto_initialization = 0
+"let g:jedi#auto_initialization = 0
 "let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
+"let g:jedi#popup_select_first = 0
+
+"
+" Rust Configurations
+"
+let g:rustfmt_autosave = 1
+
