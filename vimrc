@@ -36,9 +36,12 @@ Plugin 'gmarik/Vundle'
 " Plugins from GitHub repos:
 " python completer
 " Plugin 'davidhalter/jedi-vim'
-"Plugin 'Valloric/YouCompleteMe'
-" Python and PHP Debugger
-"Plugin 'fisadev/vim-debug.vim'
+"
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+"
 Plugin 'scrooloose/syntastic'
 " Better file browser
 Plugin 'scrooloose/nerdtree'
@@ -163,7 +166,7 @@ set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType rust setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType rust setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
 " always show status bar
 set ls=2
@@ -372,4 +375,19 @@ let g:tern#command = ['tern']
 " Rust Configurations
 "
 let g:rustfmt_autosave = 1
+
+
+"
+" Rust autocompleter
+"
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
+"let g:lsp_async_completion = 1
+autocmd FileType rust setlocal omnifunc=lsp#complete
 
