@@ -19,7 +19,8 @@ filetype off
 "
 " Mostrar caracteres
 "
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣,space:.
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣
+" set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣,space:.
 set list
 
 set rtp+=~/.vim/bundle/vundle/
@@ -53,20 +54,12 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 " Extension to ctrlp, for fuzzy command finder
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
-" Zen coding
-" Plugin 'mattn/emmet-vim'
-
 " The following are examples of different formats supported.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 
 " Command T
 Plugin 'wincent/command-t'
-
-" Tab list panel
-" Plugin 'kien/tabman.vim'
-" Powerline
-"Plugin 'Lokaltog/powerline'
 Plugin 'bling/vim-airline'
 " Terminal Vim with 256 colors colorscheme
 Plugin 'fisadev/fisa-vim-colorscheme'
@@ -80,9 +73,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'Townk/vim-autoclose'
 " Indent text object
 Plugin 'michaeljsmith/vim-indent-object'
-" Python mode (indentation, doc, refactor, lints, code checking, motion and
-" operators, highlighting, run and ipdb breakpoints)
-"Plugin 'klen/python-mode'
 " Snippets manager (SnipMate), dependencies, and snippets repo
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -95,14 +85,12 @@ Plugin 'airblade/vim-gitgutter'
 " on/off. When the plugin is present, will always activate the relative
 " numbering every time you go to normal mode. Author refuses to add a setting
 " to avoid that)
-" Plugin 'myusuf3/numbers.vim'
+Plugin 'myusuf3/numbers.vim'
 
 " Plugins from vim-scripts repos
 
 " Autocompletion
 Plugin 'AutoComplPop'
-" Python code checker
-" Plugin 'pyflakes.vim'
 " Search results counter
 Plugin 'IndexedSearch'
 " XML/HTML tags navigation
@@ -113,15 +101,12 @@ Plugin 'Wombat'
 Plugin 'YankRing.vim'
 "
 Plugin 'michalbachowski/vim-wombat256mod'
-"Javascript autocomplete
-"Plugin 'marijnh/tern_for_vim'
 " CMake
 "Plugin 'jalcine/cmake.vim'
 "
 " RUST Lang
 "
 Plugin 'rust-lang/rust.vim'
-"Plugin 'phildawes/racer'
 "
 " Typescript
 "
@@ -133,7 +118,20 @@ Plugin 'ekalinin/Dockerfile.vim'
 " TOML Syntax
 "
 Plugin 'cespare/vim-toml'
+"
+" GO Configuracion
+"
+Plugin 'fatih/vim-go'
+Plugin 'nsf/gocode', {'rtp': 'nvim/'}
 
+"
+" Auto Pairs
+"
+Plugin 'jiangmiao/auto-pairs'
+"
+" FZF
+"
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()            " required
 
@@ -167,6 +165,7 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType rust setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
 " always show status bar
 set ls=2
@@ -278,29 +277,6 @@ nmap <Leader>r :RecurGrepFast
 nmap <Leader>wR :RecurGrep <cword><CR>
 nmap <Leader>wr :RecurGrepFast <cword><CR>
 
-" python-mode settings
-" don't show lint result every time we save a file
-let g:pymode_lint_write = 0
-" run pep8+pyflakes+pylint validator with \8
-autocmd FileType python map <buffer> <leader>8 :PyLint<CR>
-" rules to ignore (example: "E501,W293")
-let g:pymode_lint_ignore = ""
-" don't add extra column for error icons (on console vim creates a 2-char-wide
-" extra column)
-let g:pymode_lint_signs = 0
-" don't fold python code on open
-let g:pymode_folding = 0
-" don't load rope by default. Change to 1 to use rope
-let g:pymode_rope = 0
-
-" rope (from python-mode) settings
-nmap <Leader>d :RopeGotoDefinition<CR>
-nmap <Leader>D :tab split<CR>:RopeGotoDefinition<CR>
-nmap <Leader>o :RopeFindOccurrences<CR>
-
-" don't let pyflakes allways override the quickfix list
-let g:pyflakes_use_quickfix = 0
-
 " tabman shortcuts
 let g:tabman_toggle = 'tl'
 let g:tabman_focus  = 'tf'
@@ -330,10 +306,6 @@ set wildmode=list:longest
 " Fix to let ESC work as espected with Autoclose plugin
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 
-" to use fancy symbols for powerline, uncomment the following line and use a
-" patched font (more info on the README.rst)
-let g:Powerline_symbols = 'fancy'
-
 " easier moving of code blocks
 " Try to go into visual mode (v), thenselect several lines of code here and
 " then press ``>`` several times.
@@ -359,18 +331,19 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-
-"Configuracion Tern
 "
-let g:tern#command = ['tern']
-
+" Python LSP
+" pip install python-language-server
 "
-" Python Jedi Configuracion
-"
-"let g:jedi#auto_initialization = 0
-"let g:jedi#popup_on_dot = 0
-"let g:jedi#popup_select_first = 0
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
 
+autocmd FileType python setlocal omnifunc=lsp#complete
 "
 " Rust Configurations
 "
@@ -383,11 +356,23 @@ let g:rustfmt_autosave = 1
 if executable('rls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
         \ 'whitelist': ['rust'],
         \ })
 endif
 
+
 "let g:lsp_async_completion = 1
 autocmd FileType rust setlocal omnifunc=lsp#complete
 
+"
+" GoLang Configuration
+"
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+"
+" Vim Go
+"
+let g:go_fmt_command = "goimports"
