@@ -16,6 +16,11 @@ endif
 filetype off
 
 "
+" FZF
+"
+set rtp+=/usr/local/opt/fzf
+
+"
 " Mostrar caracteres
 "
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣
