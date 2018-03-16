@@ -4,12 +4,11 @@ syntax on
 
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+let vundle_readme=expand('~/.local/share/nvim/site/autoload/plug.vim')
 if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
+    echo "Installing Vim-pug..."
     echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     let iCanHazVundle=0
 endif
 
@@ -23,117 +22,100 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:☠,tab:▸␣,space:.
 set list
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-call vundle#begin()
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 " ===========================================================
 " ***************** INSTALL *********************************
 " ===========================================================
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/Vundle'
-
 " Plugins from GitHub repos:
-" python completer
-" Plugin 'davidhalter/jedi-vim'
 "
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 " Better file browser
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Code commenter
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Class/module browser
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Code and files fuzzy finder
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " Extension to ctrlp, for fuzzy command finder
-Plugin 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
 " The following are examples of different formats supported.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Command T
-Plugin 'wincent/command-t'
-Plugin 'bling/vim-airline'
+Plug 'wincent/command-t'
+"
+" Airline
+"
+Plug 'bling/vim-airline'
 " Terminal Vim with 256 colors colorscheme
-Plugin 'fisadev/fisa-vim-colorscheme'
+Plug 'fisadev/fisa-vim-colorscheme'
 " Consoles as buffers
-Plugin 'rosenfeld/conque-term'
+Plug 'rosenfeld/conque-term'
 " Pending tasks list
-Plugin 'fisadev/FixedTaskList.vim'
+Plug 'fisadev/FixedTaskList.vim'
 " Surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " Autoclose
-Plugin 'Townk/vim-autoclose'
+Plug 'Townk/vim-autoclose'
 " Indent text object
-Plugin 'michaeljsmith/vim-indent-object'
+Plug 'michaeljsmith/vim-indent-object'
 " Snippets manager (SnipMate), dependencies, and snippets repo
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-"Plugin 'honza/vim-snippets'
-"Plugin 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 " Git diff icons on the side of the file lines
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " Relative numbering of lines (0 is the current line)
 " (disabled by default because is very intrusive and can't be easily toggled
 " on/off. When the plugin is present, will always activate the relative
 " numbering every time you go to normal mode. Author refuses to add a setting
 " to avoid that)
-Plugin 'myusuf3/numbers.vim'
+Plug 'myusuf3/numbers.vim'
 
 " Plugins from vim-scripts repos
-
-" Autocompletion
-Plugin 'AutoComplPop'
-" Search results counter
-Plugin 'IndexedSearch'
-" XML/HTML tags navigation
-Plugin 'matchit.zip'
-" Gvim colorscheme
-Plugin 'Wombat'
-" Yank history navigation
-Plugin 'YankRing.vim'
 "
-Plugin 'michalbachowski/vim-wombat256mod'
-" CMake
-"Plugin 'jalcine/cmake.vim'
+Plug 'michalbachowski/vim-wombat256mod'
 "
 " RUST Lang
 "
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim',{ 'for': ['rust'] }
 "
 " Typescript
 "
 " Plugin 'leafgarland/typescript-vim'
 
 " Vim syntax file & snippets for Docker's Dockerfile
-Plugin 'ekalinin/Dockerfile.vim'
+Plug 'ekalinin/Dockerfile.vim', {'for': ['Dockerfile']}
 "
 " TOML Syntax
 "
-Plugin 'cespare/vim-toml'
+Plug 'cespare/vim-toml', { 'for': ['toml'] }
 "
 " GO Configuracion
 "
-Plugin 'fatih/vim-go'
-Plugin 'nsf/gocode', {'rtp': 'nvim/'}
+Plug 'fatih/vim-go',{ 'for': ['go'] }
+Plug 'nsf/gocode', { 'rtp': 'nvim/', 'for': ['go']}
 
 "
 " Auto Pairs
 "
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 "
 " FZF
 "
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 
-call vundle#end()            " required
+" Initialize plugin system
+call plug#end()
 
 " Installing plugins the first time
 if iCanHazVundle == 0
