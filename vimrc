@@ -36,7 +36,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "
-Plug 'scrooloose/syntastic'
+" Pluging Syntastic
+"
+Plug 'vim-syntastic/syntastic'
 " Better file browser
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Code commenter
@@ -143,10 +145,10 @@ set softtabstop=4
 set shiftwidth=4
 
 " tablength exceptions
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType rust setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType html setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType rust setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
 " always show status bar
@@ -358,3 +360,15 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 " Vim Go
 "
 let g:go_fmt_command = "goimports"
+
+"
+" Syntastic Setup
+"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
